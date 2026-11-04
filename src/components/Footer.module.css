@@ -1,0 +1,44 @@
+.foot{background:var(--ink);border-top:1px solid var(--ink-line)}
+
+.inner{
+  max-width:var(--maxw);margin:0 auto;
+  padding:clamp(56px,7vw,92px) var(--gut) clamp(36px,4vw,52px);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:clamp(34px,6vw,72px);
+}
+
+.brand img{width:66px;height:auto;margin-bottom:1.1rem}
+.name{
+  margin:0;
+  font-family:var(--display);
+  font-variation-settings:'opsz' 72,'SOFT' 30,'WONK' 1;
+  font-size:1.45rem;letter-spacing:-.012em;
+}
+.tag{margin:.6rem 0 0;font-size:.9rem;color:var(--on-ink-dim);max-width:38ch}
+
+.nav{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+.nav h3{
+  font-size:.74rem;letter-spacing:.13em;color:var(--gold-lt);
+  margin-bottom:1rem;font-weight:400;
+}
+.nav a{
+  display:block;text-decoration:none;font-size:.9rem;
+  color:var(--on-ink-dim);padding:.3rem 0;
+  transition:color .28s var(--ease);
+}
+.nav a:hover{color:var(--on-ink)}
+
+.end{
+  max-width:var(--maxw);margin:0 auto;
+  padding:1.3rem var(--gut) 2.2rem;
+  border-top:1px solid var(--ink-line);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.8rem;color:var(--on-ink-dim);letter-spacing:.02em;
+}
+.end p{margin:0}
+.end a{text-decoration:none}
+.end a:hover{color:var(--gold-lt)}
+
+@media (max-width:1080px){ .inner{grid-template-columns:1fr} }
+@media (max-width:560px){ .nav{grid-template-columns:1fr 1fr} }

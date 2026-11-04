@@ -1,0 +1,24 @@
+.says{
+  position:relative;
+  max-width:none;
+  margin:0;
+  padding:var(--sp) var(--gut);
+  isolation:isolate;
+  overflow:hidden;
+}
+.says::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:url('/img/bg-quote.webp') center / cover no-repeat;
+  opacity:.14;
+}
+.says::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(90deg,rgba(10,29,24,.96),rgba(10,29,24,.84),rgba(10,29,24,.94));
+}
+.says > *{max-width:960px;margin-inline:auto}
