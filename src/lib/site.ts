@@ -62,11 +62,11 @@ export const site = {
   /** TODO: replace every value in this block before launch. */
   contact: {
     /** Digits only, with country code, no `+` — this builds the wa.me link. */
-    whatsapp: envOr(process.env.NEXT_PUBLIC_WHATSAPP, '923000000000'),
+    whatsapp: envOr(process.env.NEXT_PUBLIC_WHATSAPP, '923331119790'),
     /** The same number, formatted for a human to read. */
-    phoneDisplay: envOr(process.env.NEXT_PUBLIC_PHONE_DISPLAY, '+92 300 000 0000'),
+    phoneDisplay: envOr(process.env.NEXT_PUBLIC_PHONE_DISPLAY, '+92 333 1119790'),
     /** E.164-ish, for structured data. */
-    phoneSchema: envOr(process.env.NEXT_PUBLIC_PHONE_SCHEMA, '+92-300-000-0000'),
+    phoneSchema: envOr(process.env.NEXT_PUBLIC_PHONE_SCHEMA, '+92-333-1119790'),
     email: envOr(process.env.NEXT_PUBLIC_EMAIL, 'hello@saimascoutureroom.com'),
     instagram: 'saimascoutureroom',
     facebook: 'saimascoutureroom',
