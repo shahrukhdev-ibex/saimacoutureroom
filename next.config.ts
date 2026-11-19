@@ -1,6 +1,15 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  /**
+   * Dev only. Lets the site be opened from another device on the LAN (e.g. a
+   * phone at http://192.168.18.47:3002). Without this, Next 16 blocks the dev
+   * resources for that origin, the page never hydrates, and every client
+   * behaviour — hero autoplay, rail scrolling, lookbook — silently does nothing.
+   * Update the IP if the machine's address changes.
+   */
+  allowedDevOrigins: ['192.168.18.47'],
+
   images: {
     /**
      * Next 16 defaults this to [75] and silently coerces anything else to the

@@ -112,7 +112,7 @@ export function Spotlight() {
         <Image
           className={s.base}
           src={productImage(piece.slug, 'back')}
-          alt={piece.alt.back}
+          alt={piece.alt.back ?? piece.name}
           width={PRODUCT_W}
           height={PRODUCT_H}
           sizes="(max-width:900px) 92vw, 46vw"

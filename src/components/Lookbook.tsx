@@ -8,7 +8,7 @@ import s from './Lookbook.module.css';
 
 const shots = lookbook.map(({ slug, view }) => {
   const p = bySlug(slug)!;
-  return { src: productImage(slug, view), alt: p.alt[view], name: p.name };
+  return { src: productImage(slug, view), alt: p.alt[view] ?? p.name, name: p.name };
 });
 
 export function Lookbook() {

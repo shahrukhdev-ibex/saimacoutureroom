@@ -7,9 +7,7 @@ import {
   PRODUCT_H,
 } from '@/lib/products';
 import {
-  craft,
   storyImage,
-  techniques,
   steps,
   faq,
   occasions,
@@ -102,47 +100,6 @@ export function Categories() {
           </a>
         ))}
       </div>
-    </section>
-  );
-}
-
-/* ── craft ────────────────────────────────────────────────────────── */
-export function Craft() {
-  return (
-    <section className={s.craft} id="craft">
-      <div className="sec-head">
-        <div>
-          <h2 className="sec-h">The work itself</h2>
-          <p className="sec-sub">
-            Photographed in the room, on the actual cloth &mdash; not a rendering. This is what
-            arrives.
-          </p>
-        </div>
-      </div>
-
-      <div className={s.craftGrid}>
-        {craft.map((c) => (
-          <figure key={c.id} className={s.craftFig}>
-            <Image
-              src={craftImage(c.id)}
-              alt={c.alt}
-              width={CRAFT_W}
-              height={CRAFT_H}
-              sizes="(max-width:820px) 46vw, 24vw"
-            />
-            <figcaption>{c.caption}</figcaption>
-          </figure>
-        ))}
-      </div>
-
-      <ul className={s.tech}>
-        {techniques.map((t) => (
-          <li key={t.name}>
-            <b>{t.name}</b>
-            <span>{t.copy}</span>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
@@ -290,7 +247,7 @@ export function Visit() {
       <figure className={s.visitImg}>
         <Image
           src={productImage(piece.slug, 'alt')}
-          alt={piece.alt.alt}
+          alt={piece.alt.alt ?? piece.name}
           width={PRODUCT_W}
           height={PRODUCT_H}
           sizes="(max-width:900px) 92vw, 42vw"

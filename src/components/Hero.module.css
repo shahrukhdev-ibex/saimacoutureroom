@@ -51,3 +51,6 @@
   .facts{gap:1.1rem 1.6rem}
   .facts div{flex:1 1 40%}
 }
+
+/* Keep hyphenated words ("semi-formal", "hand-embroidered") on one line instead of breaking after the hyphen. */
+.nobr{white-space:nowrap}

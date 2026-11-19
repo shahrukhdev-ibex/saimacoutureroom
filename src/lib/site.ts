@@ -108,7 +108,6 @@ export const emailHref = `mailto:${site.contact.email}`;
 
 export const nav = [
   { href: '#collection', label: 'The collection' },
-  { href: '#craft', label: 'Craft' },
   { href: '#bespoke', label: 'Bespoke' },
   { href: '#lookbook', label: 'Lookbook' },
   { href: '#visit', label: 'Visit' },

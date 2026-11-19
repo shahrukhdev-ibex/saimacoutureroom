@@ -36,16 +36,16 @@
   display:flex;align-items:center;gap:1.4rem;
 }
 
-.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;flex:0 0 auto}
-.brand img{width:42px;height:auto}
+.brand{display:flex;align-items:center;gap:.85rem;text-decoration:none;flex:0 0 auto}
+.brand img{width:56px;height:auto}
 
 .brandName{
   display:flex;flex-direction:column;
   font-family:var(--display);
   font-variation-settings:'opsz' 40,'SOFT' 30,'WONK' 1;
-  font-size:.98rem;line-height:1.08;letter-spacing:.01em;
+  font-size:1.2rem;line-height:1.08;letter-spacing:.01em;
 }
-.brandName em{font-style:normal;color:var(--gold-lt);font-size:.86rem;letter-spacing:.04em}
+.brandName em{font-style:normal;color:var(--gold-lt);font-size:1.02rem;letter-spacing:.04em}
 
 .nav{display:flex;gap:clamp(1rem,2.2vw,2.1rem);margin-left:auto}
 .nav a{
@@ -97,6 +97,16 @@
 
 @media (max-width:560px){
   .cta{padding:.7em 1em}
-  .brand img{width:36px}
-  .brandName{font-size:.9rem}
+  .brand{gap:.7rem}
+  .brand img{width:46px}
+  .brandName{font-size:1.04rem}
+  .brandName em{font-size:.9rem}
+}
+
+/* Smallest phones: logo + WhatsApp + burger must still share one row. */
+@media (max-width:400px){
+  .brand{gap:.55rem}
+  .brand img{width:40px}
+  .brandName{font-size:.95rem}
+  .brandName em{font-size:.82rem}
 }

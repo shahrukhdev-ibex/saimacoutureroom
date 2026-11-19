@@ -19,8 +19,12 @@ export type Product = {
   detail: string;
   /** A colour lifted from the garment; tints the card behind the image. */
   tint: string;
-  /** Alt text per view. Written out rather than templated — each says something. */
-  alt: Record<View, string>;
+  /**
+   * Alt text per view. Written out rather than templated — each says something.
+   * Only list the views that were actually photographed; `front` is required.
+   * A piece with no `back` shows no "Turn around" button on its card.
+   */
+  alt: { front: string } & Partial<Record<View, string>>;
 };
 
 export const PRODUCT_W = 1024;
@@ -186,18 +190,144 @@ export const products: Product[] = [
       alt: 'Champagne Dusk photographed from behind beside a courtyard pool',
     },
   },
+
+  /* ── new collection ─────────────────────────────────────────────── */
+  {
+    slug: 'gilded-terrace',
+    name: 'Gilded Terrace',
+    blurb: 'Antique-gold net jacket with scalloped zardozi, worn over a brocade sharara.',
+    detail: 'Gold net jacket with brocade sharara',
+    tint: '#7A6638',
+    alt: {
+      front: 'Model in an antique-gold net jacket with scalloped zardozi over a gold brocade sharara',
+      walk: 'Gilded Terrace jacket and sharara walking along a lakeside marble terrace',
+      back: 'Gilded Terrace, back view of the scalloped zardozi yoke and brocade sharara',
+    },
+  },
+  {
+    slug: 'sage-trellis',
+    name: 'Sage Trellis',
+    blurb: 'Sage raw-silk kameez, copper dori lattice, organza dupatta with a worked border.',
+    detail: 'Sage kameez with organza dupatta',
+    tint: '#4F6B5E',
+    alt: {
+      front: 'Model in a sage raw-silk kameez with a copper dori lattice and a sheer organza dupatta',
+      back: 'Sage Trellis, back view showing the framed dori panels and worked dupatta border',
+      alt: 'Sage Trellis seen from behind with the dupatta draped over one arm',
+    },
+  },
+  {
+    slug: 'rose-quartz',
+    name: 'Rose Quartz',
+    blurb: 'Dusty-rose silk kurta, pearl-edged slits, jacquard sharara, sequinned dupatta.',
+    detail: 'Dusty-rose kurta with jacquard sharara',
+    tint: '#8A4F5C',
+    alt: {
+      front: 'Model in a dusty-rose silk kurta with pearl-edged slits over a rose jacquard sharara',
+      back: 'Rose Quartz, back view with tonal thread sprays and a keyhole neckline',
+      alt: 'Rose Quartz seen from a three-quarter angle holding the sequinned dupatta',
+    },
+  },
+  {
+    slug: 'onyx-pearl',
+    name: 'Onyx & Pearl',
+    blurb: 'Ivory raw-silk lehenga, black resham damask panels, pearl-strewn net overlay.',
+    detail: 'Ivory and black lehenga with pearl net',
+    tint: '#3B342C',
+    alt: {
+      front: 'Model in an ivory lehenga with black resham damask panels and a pearl-strewn net overlay',
+      walk: 'Onyx and Pearl lehenga swirling in a sandstone courtyard',
+      back: 'Onyx and Pearl, back view of the ivory blouse and black-bordered lehenga',
+      alt: 'Onyx and Pearl lehenga seen from behind, the pearl hem fanned out',
+    },
+  },
+  {
+    slug: 'mulberry-night',
+    name: 'Mulberry Night',
+    blurb: 'Pre-draped mulberry georgette sari, mirror-lattice pallu, black embroidered blouse.',
+    detail: 'Pre-draped mulberry sari',
+    tint: '#4A1626',
+    alt: {
+      front: 'Model in a pre-draped mulberry sari with a mirror-lattice pallu and a black embroidered blouse',
+    },
+  },
 ];
 
 export const bySlug = (slug: string) => products.find((p) => p.slug === slug);
 
-/** The five pieces that run in the hero slider, in order. */
-export const heroSlugs = [
-  'verdant-grace',
-  'plum-regalia',
-  'golden-hour',
-  'rosewood-ceremony',
-  'amethyst-hour',
-] as const;
+/** One photo in the hero slider. Several slides can share a piece. */
+export type HeroSlide = { slug: string; src: string; alt: string };
+
+/** A product photo by view, reusing that piece's own alt text. */
+const shot = (slug: string, view: View): HeroSlide => ({
+  slug,
+  src: productImage(slug, view),
+  alt: bySlug(slug)?.alt[view] ?? '',
+});
+
+/** A photo used only in the hero — not one of the four standard views. */
+const extra = (slug: string, file: string, alt: string): HeroSlide => ({
+  slug,
+  src: `/img/${file}.webp`,
+  alt,
+});
+
+/**
+ * The hero slider, photo by photo, in order. Photos of the same piece sit
+ * together so the slider walks round one outfit before moving to the next.
+ */
+export const heroSlides: HeroSlide[] = [
+  shot('rose-quartz', 'front'),
+  shot('rose-quartz', 'alt'),
+
+  extra('mulberry-night', 'mulberry-night-hero', 'Mulberry Night pre-draped sari seen from the front with the pallu over one arm'),
+  extra('mulberry-night', 'mulberry-night-detail', 'Mulberry Night close-up of the mirror-lattice pallu and striped pleats'),
+  shot('mulberry-night', 'front'),
+
+  shot('gilded-terrace', 'front'),
+  shot('gilded-terrace', 'back'),
+  shot('gilded-terrace', 'walk'),
+
+  shot('onyx-pearl', 'front'),
+  shot('onyx-pearl', 'back'),
+  shot('onyx-pearl', 'walk'),
+
+  extra('plum-regalia', 'plum-regalia-hero-front', 'Plum Regalia aubergine front-open gown with gold zardozi panels, standing in a rose garden'),
+  extra('plum-regalia', 'plum-regalia-hero-back', 'Plum Regalia, back view of the gold panels over a jacquard skirt beneath a bougainvillea arch'),
+  extra('plum-regalia', 'plum-regalia-hero', 'Plum Regalia aubergine front-open gown with gold panels, walking through a garden'),
+  extra('plum-regalia', 'plum-regalia-hero-turn', 'Plum Regalia seen from behind, glancing back over one shoulder on a garden path'),
+
+  extra('moonlit-teal', 'moonlit-teal-hero-front', 'Moonlit Teal champagne sequinned net sari with a teal embroidered blouse, standing on a garden path'),
+  extra('moonlit-teal', 'moonlit-teal-hero', 'Moonlit Teal champagne sequinned sari with a teal blouse, walking across a lawn'),
+  extra('moonlit-teal', 'moonlit-teal-hero-seated', 'Moonlit Teal sari seated on a carved stone bench, the worked pallu spread across her lap'),
+  extra('moonlit-teal', 'moonlit-teal-hero-back', 'Moonlit Teal, back view of the teal blouse and the long sequinned pallu beneath a flowering arch'),
+
+  extra('sage-trellis', 'sage-trellis-hero-front', 'Sage Trellis raw-silk kameez with a copper dori lattice, organza dupatta over one shoulder, in a conservatory'),
+  shot('sage-trellis', 'alt'),
+  shot('sage-trellis', 'front'),
+  shot('sage-trellis', 'back'),
+
+  shot('golden-hour', 'walk'),
+  shot('golden-hour', 'alt'),
+  shot('golden-hour', 'back'),
+
+  extra('rosewood-ceremony', 'rosewood-ceremony-hero-front', 'Rosewood Ceremony wine embroidered shirt and ivory floral sharara, standing on a lakeside terrace at sunset'),
+  extra('rosewood-ceremony', 'rosewood-ceremony-hero-back', 'Rosewood Ceremony, back view of the wine shirt with the velvet-striped dupatta over one arm'),
+  extra('rosewood-ceremony', 'rosewood-ceremony-hero', 'Rosewood Ceremony wine shirt and ivory sharara on a lakeside terrace at sunset'),
+  extra('rosewood-ceremony', 'rosewood-ceremony-hero-turn', 'Rosewood Ceremony seen from behind, glancing back over one shoulder on lantern-lit steps'),
+
+  shot('smoke-and-pine', 'front'),
+  extra('smoke-and-pine', 'smoke-and-pine-hero-back', 'Smoke and Pine, back view of the beaded printed shirt beside a climbing rose arbour'),
+  shot('smoke-and-pine', 'back'),
+  shot('smoke-and-pine', 'walk'),
+
+  shot('emerald-heirloom', 'back'),
+  shot('emerald-heirloom', 'alt'),
+  shot('emerald-heirloom', 'walk'),
+  shot('emerald-heirloom', 'front'),
+
+  shot('champagne-dusk', 'back'),
+];
 
 /** The piece used for the drag-to-reveal front/back comparison. */
 export const spotlightSlug = 'plum-regalia';

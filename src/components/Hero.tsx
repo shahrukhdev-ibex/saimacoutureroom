@@ -1,14 +1,27 @@
 'use client';
 
 import Image from 'next/image';
-import { heroSlugs, bySlug, productImage, PRODUCT_W, PRODUCT_H } from '@/lib/products';
+import { heroSlides, bySlug, PRODUCT_W, PRODUCT_H } from '@/lib/products';
 import { whatsappHref } from '@/lib/site';
 import { useFadeSlider } from '@/lib/useFadeSlider';
 import { Chevron } from './icons';
 import s from './Hero.module.css';
 import sl from './Slider.module.css';
 
-const slides = heroSlugs.map((slug) => bySlug(slug)!).filter(Boolean);
+const slides = heroSlides.flatMap((s) => {
+  const piece = bySlug(s.slug);
+  return piece ? [{ ...s, piece }] : [];
+});
+
+/** One dot per piece: the index of the first slide in each run of the same piece. */
+const pieceStarts = slides.flatMap((s, i) => (i === 0 || slides[i - 1].slug !== s.slug ? [i] : []));
+
+/** Which piece (dot) a slide belongs to. */
+const pieceOf = (slide: number) => {
+  let g = 0;
+  for (let k = 0; k < pieceStarts.length; k++) if (pieceStarts[k] <= slide) g = k;
+  return g;
+};
 
 const FACTS = [
   { t: '6–9 weeks', d: 'on a heavily worked piece' },
@@ -17,7 +30,7 @@ const FACTS = [
 ];
 
 export function Hero() {
-  const { index, step, select, trackProps } = useFadeSlider(slides.length, 5600);
+  const { index, step, select, trackProps } = useFadeSlider(slides.length, 1200);
 
   return (
     <section className={s.hero} aria-label="Introduction">
@@ -25,11 +38,14 @@ export function Hero() {
 
       <div className={s.copy}>
         <p className="kicker">The 2026 edit</p>
-        <h1>Hand-embroidered occasion wear, made one piece at a time.</h1>
+        <h1>
+          Formal&nbsp;&amp; <span className={s.nobr}>semi-formal</span>{' '}
+          <span className={s.nobr}>hand-embroidered</span> occasion wear, made one piece at a time.
+        </h1>
         <p className={s.sub}>
-          Saima&rsquo;s Couture Room is a small atelier for saris, shararas and gowns. Zardozi, dori
-          and cutwork, laid on chiffon and raw silk, cut to your measurements and finished entirely
-          by hand.
+          Saima&rsquo;s Couture Room is a unique atelier for formal dresses, saris, shararas and
+          gowns. Zardozi, dori and cutwork, laid on chiffon and raw silk, cut to your measurements
+          and finished entirely by hand.
         </p>
 
         <div className={s.acts}>
@@ -54,15 +70,15 @@ export function Hero() {
       <div className={s.stage}>
         <div className={sl.slider}>
           <div className={sl.track} role="group" aria-label="Featured pieces" aria-live="polite" {...trackProps}>
-            {slides.map((p, i) => (
+            {slides.map(({ src, alt, piece: p }, i) => (
               <figure
-                key={p.slug}
+                key={src}
                 className={`${sl.slide} ${i === index ? sl.on : ''}`}
                 style={{ backgroundColor: p.tint }}
               >
                 <Image
-                  src={productImage(p.slug, 'front')}
-                  alt={p.alt.front}
+                  src={src}
+                  alt={alt}
                   width={PRODUCT_W}
                   height={PRODUCT_H}
                   sizes="(max-width:900px) 88vw, 40vw"
@@ -95,14 +111,14 @@ export function Hero() {
           </button>
 
           <div className={sl.dots} role="tablist" aria-label="Choose a piece">
-            {slides.map((p, i) => (
+            {pieceStarts.map((start, g) => (
               <button
-                key={p.slug}
+                key={slides[start].slug}
                 type="button"
                 role="tab"
-                aria-selected={i === index}
-                aria-label={`Show ${p.name}`}
-                onClick={() => select(i)}
+                aria-selected={g === pieceOf(index)}
+                aria-label={`Show ${slides[start].piece.name}`}
+                onClick={() => select(start)}
               />
             ))}
           </div>

@@ -4,7 +4,6 @@ import {
   Marquee,
   Story,
   Categories,
-  Craft,
   Process,
   Appointment,
   Faq,
@@ -32,7 +31,6 @@ export default function Page() {
         <Categories />
         <Collection />
         <Spotlight />
-        <Craft />
         <Process />
         <Lookbook />
         <Testimonials />

@@ -14,7 +14,6 @@ const groups = [
   {
     title: 'Know',
     links: [
-      { href: '#craft', label: 'The work' },
       { href: '#bespoke', label: 'Commissions' },
       { href: '#faq', label: 'Questions' },
     ],

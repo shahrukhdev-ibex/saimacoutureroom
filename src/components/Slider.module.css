@@ -15,7 +15,8 @@
   position:absolute;inset:0;margin:0;
   opacity:0;visibility:hidden;
   transform:scale(1.035);
-  transition:opacity .9s var(--ease),transform 1.5s var(--ease),visibility .9s;
+  /* Kept well under the hero's 1.2s autoplay interval so each photo settles before the next. */
+  transition:opacity .4s var(--ease),transform .8s var(--ease),visibility .4s;
 }
 .on{opacity:1;visibility:visible;transform:none}
 .slide img{width:100%;height:100%;object-fit:cover}
@@ -52,7 +53,9 @@
 
 .dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.1rem}
 .dots button{
-  width:26px;height:2px;padding:8px 0;background:none;position:relative;
+  /* 26px when there's room; shrinks so a long row (one dot per hero piece) still fits a phone. */
+  flex:0 1 26px;min-width:12px;
+  height:2px;padding:8px 0;background:none;position:relative;
 }
 .dots button::after{
   content:'';position:absolute;inset:8px 0;

@@ -21,22 +21,26 @@ function Card({ p }: { p: Product }) {
           height={PRODUCT_H}
           sizes="(max-width:700px) 78vw, 320px"
         />
-        <Image
-          className={s.back}
-          src={productImage(p.slug, 'back')}
-          alt={p.alt.back}
-          width={PRODUCT_W}
-          height={PRODUCT_H}
-          sizes="(max-width:700px) 78vw, 320px"
-        />
-        <button
-          type="button"
-          className={s.turn}
-          aria-pressed={back}
-          onClick={() => setBack((v) => !v)}
-        >
-          {back ? 'See the front' : 'Turn around'}
-        </button>
+        {p.alt.back && (
+          <>
+            <Image
+              className={s.back}
+              src={productImage(p.slug, 'back')}
+              alt={p.alt.back}
+              width={PRODUCT_W}
+              height={PRODUCT_H}
+              sizes="(max-width:700px) 78vw, 320px"
+            />
+            <button
+              type="button"
+              className={s.turn}
+              aria-pressed={back}
+              onClick={() => setBack((v) => !v)}
+            >
+              {back ? 'See the front' : 'Turn around'}
+            </button>
+          </>
+        )}
       </div>
 
       <div className={s.txt}>
@@ -91,7 +95,7 @@ export function Collection() {
         <div>
           <h2 className="sec-h">The collection</h2>
           <p className="sec-sub">
-            Twelve pieces in the current edit. Every one can be re-made in another colour, length or
+            Seventeen pieces in the current edit. Every one can be re-made in another colour, length or
             weight of work.
           </p>
         </div>

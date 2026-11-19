@@ -1,18 +1,8 @@
-/** Craft close-ups, techniques, process steps, FAQ and testimonials. */
+/** Story image, process steps, FAQ and testimonials. */
 
 export const CRAFT_W = 960;
 export const CRAFT_H = 1280;
 export const craftImage = (id: string) => `/img/${id}.webp`;
-
-/** The six frames in the craft grid. First one spans two rows, fifth spans two columns. */
-export const craft = [
-  { id: 'craft-02', caption: 'Brocade ground, cutwork hem', alt: 'Gold brocade ground finished with a maroon band and a gold cutwork hem' },
-  { id: 'craft-01', caption: 'Naqshi zigzag, pearl edge', alt: 'Naqshi thread worked into a zigzag border edged with pearls' },
-  { id: 'craft-06', caption: 'Cutwork lattice on teal', alt: 'Gold cutwork lattice laid over a deep teal ground' },
-  { id: 'craft-10', caption: 'Champagne sheer, scattered sprays', alt: 'Champagne sheer scattered with fine gold sprays and sequins' },
-  { id: 'craft-03', caption: 'Gold border against bandhani', alt: 'Broad gold border stitched against blue bandhani cloth' },
-  { id: 'craft-07', caption: 'Turquoise organza, worked edge', alt: 'Turquoise organza finished with a worked gold edge' },
-];
 
 /** The image beside the brand story. */
 export const storyImage = {
@@ -20,15 +10,6 @@ export const storyImage = {
   alt: 'Close detail of dense antique-gold zardozi embroidery on a champagne ground',
   caption: 'Antique-gold zardozi, worked by hand on a champagne ground',
 };
-
-export const techniques = [
-  { name: 'Zardozi', copy: 'Metal thread laid and couched by hand, the heaviest work on the piece.' },
-  { name: 'Dori', copy: 'Fine corded outline that holds a motif’s shape after years of wear.' },
-  { name: 'Kora & naqshi', copy: 'Matte and bright metal coils, used together so the light breaks up.' },
-  { name: 'Sheesha', copy: 'Mirror discs stitched into a frame of thread, never glued.' },
-  { name: 'Cutwork', copy: 'Net cut away behind the motif, leaving embroidery floating on skin.' },
-  { name: 'Pearl & bead', copy: 'Weight at the hem and the pallu edge, so the fabric falls properly.' },
-];
 
 export const steps = [
   {
